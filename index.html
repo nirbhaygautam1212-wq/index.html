@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPBSE | Nirbhay Gautam Official</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; overflow-x: hidden; padding-bottom: 80px; }
+
+        /* टॉप बार और रेलवे घड़ी */
+        .top-nav { background: #000; color: #fff; padding: 12px; display: flex; align-items: center; border-bottom: 3px solid #ed4956; position: sticky; top: 0; z-index: 100; }
+        .rail-clock { background: #ed4956; color: white; padding: 4px 12px; font-weight: bold; border-radius: 4px; margin: 0 10px; font-family: monospace; }
+        .marquee { overflow: hidden; white-space: nowrap; flex-grow: 1; font-size: 13px; font-weight: bold; }
+        .marquee span { display: inline-block; animation: scroll 12s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* MPBSE हेडर */
+        .mp-header { background: #003366; color: white; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { width: 55px; height: 55px; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ed4956; }
+
+        /* मेन कार्ड */
+        .card { max-width: 420px; margin: 30px auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; padding: 25px; border-top: 6px solid #ed4956; }
+        .active { display: block; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* इनपुट और बटन */
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1.5px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; }
+        input:focus { border-color: #003366; }
+        .btn { background: #003366; color: white; border: none; padding: 16px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.3s; }
+        .btn:hover { background: #002244; }
+
+        /* वर्किंग लोडिंग बार */
+        .bar-bg { background: #eee; height: 20px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .bar-fill { background: linear-gradient(90deg, #ed4956, #003366); width: 0%; height: 100%; transition: width 0.3s; }
+        .working { color: #ed4956; font-weight: bold; font-size: 20px; animation: blink 0.8s infinite; margin-top: 10px; letter-spacing: 2px; }
+        @keyframes blink { 50% { opacity: 0.2; } }
+
+        /* रिजल्ट टेबल */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fafafa; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; font-size: 14px; }
+        th { background: #eee; color: #003366; }
+
+        /* इंस्टाग्राम लिंक स्टाइल */
+        .insta-links { margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #ed4956; }
+        .insta-links a { color: #ed4956; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 5px 0; }
+
+        /* डायनेमिक फुटर (Under Development) */
+        .footer { background: #111; color: #fff; padding: 18px 0; position: fixed; bottom: 0; width: 100%; border-top: 3px solid #ed4956; z-index: 1000; }
+        .footer-scroll { white-space: nowrap; overflow: hidden; }
+        .footer-scroll span { display: inline-block; animation: fastMove 9s linear infinite; color: #ed4956; font-weight: bold; }
+        @keyframes fastMove { 0% { transform: translateX(100%); } 100% { transform: translateX(-150%); } }
+    </style>
+</head>
+<body onload="startClock()">
+
+    <div class="top-nav">
+        <div class="rail-clock" id="clock">00:00:00</div>
+        <div class="marquee"><span>📺 SONY SET | TMKOC OFFICIAL AD | DEV: NIRBHAY GAUTAM ™®© | JUNE 2026 RELEASE</span></div>
+    </div>
+
+    <div class="mp-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Emblem_of_Madhya_Pradesh.svg/200px-Emblem_of_Madhya_Pradesh.svg.png" class="logo" onerror="this.src='https://via.placeholder.com/50?text=MP'">
+        <div style="text-align: left;">
+            <b style="font-size: 18px; letter-spacing: 1px;">MPBSE, BHOPAL</b><br>
+            <span style="font-size: 11px; opacity: 0.8;">High School (Class 10th) Results 2026</span>
+        </div>
+    </div>
+
+    <div id="step1" class="card active">
+        <h3 style="color:#003366; margin-bottom:15px; font-size: 18px;">Access Portal</h3>
+        <input type="number" id="roll" placeholder="Enter Roll Number">
+        <input type="number" id="app" placeholder="Enter Application Number">
+        <button class="btn" onclick="startSystem()">SUBMIT DETAILS</button>
+    </div>
+
+    <div id="step2" class="card">
+        <h3 style="color:#003366;">Fetching Result...</h3>
+        <div class="bar-bg"><div class="bar-fill" id="fill"></div></div>
+        <div id="count" style="font-size: 40px; font-weight: bold; color: #003366;">10</div>
+        <div class="working">WORKING...</div>
+    </div>
+
+    <div id="step3" class="card">
+        <div style="background:#d4edda; padding:12px; border-radius:6px; border:1px solid #c3e6cb; color:#155724; font-weight:bold; margin-bottom: 15px;">
+            RESULT STATUS: PASS (1st DIV)
+        </div>
+        <table>
+            <tr><th>Subject</th><th>Marks</th></tr>
+            <tr><td>Hindi Special</td><td>88/100</td></tr>
+            <tr><td>Mathematics</td><td>95/100</td></tr>
+            <tr><td>Science</td><td>91/100</td></tr>
+        </table>
+        <p style="font-size: 12px; margin-top: 15px; color: #666;">Session Validity: <b id="timer24">24:00:00</b></p>
+        
+        <div class="insta-links">
+            <span style="font-size: 11px; color: #333; display: block; margin-bottom: 5px;">OFFICIAL CONTACTS:</span>
+            <a href="https://instagram.com/ni_rbhay_">🔗 Instagram: @ni_rbhay_</a>
+            <a href="https://instagram.com/niiiihu_patel_">🔗 Instagram: @niiiihu_patel_</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-scroll">
+            <span>🚀 STATUS: UNDER DEVELOPMENT! | 🛠️ WORK IN PROGRESS: 77% | DEVELOPER: NIRBHAY GAUTAM ™®© | 📅 FULL VERSION: JUNE 2026 | ⚠️ DO NOT REFRESH PAGE</span>
+        </div>
+    </div>
+
+    <script>
+        function startClock() {
+            setInterval(() => {
+                document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB');
+            }, 1000);
+        }
+
+        function speakSlow() {
+            let msg = new SpeechSynthesisUtterance("डेवलपर निर्भय गौतम। सिस्टम वर्किंग मोड पर है। यह पोर्टल अभी अंडर डेवलपमेंट है।");
+            msg.lang = 'hi-IN';
+            msg.rate = 0.55; 
+            window.speechSynthesis.speak(msg);
+        }
+
+        function startSystem() {
+            const r = document.getElementById('roll').value;
+            const a = document.getElementById('app').value;
+            if(!r || !a) return alert("Please fill all details!");
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            speakSlow();
+
+            let t = 10;
+            let timer = setInterval(() => {
+                t--;
+                document.getElementById('count').innerText = t;
+                document.getElementById('fill').style.width = (10-t)*10 + "%";
+                if(t === 5) speakSlow();
+                if(t <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('step2').classList.remove('active');
+                    document.getElementById('step3').classList.add('active');
+                    start24();
+                }
+            }, 1000);
+        }
+
+        function start24() {
+            let h=24, m=0, s=0;
+            setInterval(() => {
+                if(s>0) s--; else if(m>0){m--; s=59;} else if(h>0){h--; m=59; s=59;}
+                document.getElementById('timer24').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
