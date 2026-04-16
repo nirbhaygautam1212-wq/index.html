@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPBSE | Under Development Portal</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; text-align: center; color: #333; overflow-x: hidden; }
+        
+        /* टॉप एड बार */
+        .top-ads { background: #000; color: #fff; padding: 10px 0; font-size: 13px; border-bottom: 3px solid #ed4956; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .railway-clock { background: #ed4956; color: white; padding: 4px 10px; font-weight: bold; border-radius: 3px; margin: 0 10px; font-family: monospace; }
+        .marquee { white-space: nowrap; overflow: hidden; flex-grow: 1; font-weight: bold; }
+        .marquee span { display: inline-block; animation: scroll 12s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* सरकारी हेडर */
+        .header-main { background: #003366; color: white; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .mp-logo { width: 55px; height: 55px; background: white; border-radius: 50%; padding: 5px; }
+
+        .container { max-width: 450px; margin: 30px auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; padding: 30px; border-top: 6px solid #ed4956; position: relative; }
+        .active { display: block; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* इनपुट सिस्टम */
+        .input-box { text-align: left; margin-bottom: 18px; }
+        label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 6px; color: #003366; text-transform: uppercase; }
+        input { width: 100%; padding: 14px; border: 1.5px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: #ed4956; outline: none; }
+        
+        .submit-btn { background: #003366; color: white; border: none; padding: 16px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 6px; font-size: 18px; letter-spacing: 1px; }
+        .submit-btn:hover { background: #002244; }
+
+        /* नया वर्किंग लोडिंग बार */
+        .loading-section { padding: 20px 0; }
+        .progress-container { background: #eee; border-radius: 25px; height: 20px; width: 100%; margin: 15px 0; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #ed4956, #003366); height: 100%; width: 0%; transition: width 0.4s; }
+        .working-status { color: #ed4956; font-weight: bold; font-size: 22px; animation: blink 0.8s infinite; margin-top: 10px; letter-spacing: 2px; }
+        @keyframes blink { 50% { opacity: 0.2; } }
+
+        /* रिजल्ट टेबल */
+        .result-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .result-table th, .result-table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 14px; }
+        .result-table th { background: #f8f9fa; color: #003366; }
+
+        /* फुटर (Under Development) */
+        .dev-footer { background: #111; color: #fff; padding: 15px 0; font-size: 14px; position: fixed; bottom: 0; width: 100%; border-top: 2px solid #ed4956; }
+        .footer-moving { white-space: nowrap; overflow: hidden; display: block; }
+        .footer-moving span { display: inline-block; padding-left: 100%; animation: fastMove 8s linear infinite; color: #ed4956; font-weight: bold; }
+        @keyframes fastMove { 0% { transform: translateX(0); } 100% { transform: translateX(-150%); } }
+
+        .tag-dev { background: #ed4956; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; vertical-align: middle; margin-right: 10px; }
+    </style>
+</head>
+<body onload="startClock()">
+
+    <div class="top-ads">
+        <div class="railway-clock" id="rClock">00:00:00</div>
+        <div class="marquee"><span>📺 SONY SET | TMKOC OFFICIAL AD | DEV: NIRBHAY GAUTAM ™®© | JUNE 2026 RELEASE</span></div>
+    </div>
+
+    <div class="header-main">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Emblem_of_Madhya_Pradesh.svg/1200px-Emblem_of_Madhya_Pradesh.svg.png" class="mp-logo" alt="MP Logo">
+        <div>
+            <div style="font-size: 18px; font-weight: bold; letter-spacing: 1px;">MPBSE, BHOPAL</div>
+            <div style="font-size: 12px; opacity: 0.9;">High School (Class 10th) Results 2026</div>
+        </div>
+    </div>
+
+    <div id="step1" class="container active">
+        <div style="margin-bottom: 20px;"><span class="tag-dev">SYSTEM ACTIVE</span></div>
+        <div class="input-box">
+            <label>Roll Number</label>
+            <input type="number" id="roll" placeholder="Enter 9 Digit Roll No.">
+        </div>
+        <div class="input-box">
+            <label>Application Number</label>
+            <input type="number" id="appNum" placeholder="Enter 8 Digit App No.">
+        </div>
+        <button class="submit-btn" onclick="runProcess()">GET RESULT</button>
+    </div>
+
+    <div id="step2" class="container">
+        <div class="loading-section">
+            <h3 style="color: #003366; margin-top: 0;">Accessing Database...</h3>
+            <div class="progress-container">
+                <div class="progress-fill" id="pBar"></div>
+            </div>
+            <div id="countdown" style="font-size: 40px; font-weight: bold; color: #003366;">10</div>
+            <div class="working-status">WORKING...</div>
+        </div>
+    </div>
+
+    <div id="step3" class="container">
+        <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+            <strong style="font-size: 18px;">STATUS: PASS (1st DIV)</strong>
+            <div style="font-size: 12px; margin-top: 5px;">Session Expire: <span id="timer24h">24:00:00</span></div>
+        </div>
+        
+        <table class="result-table">
+            <tr><th>Subject</th><th>Marks</th></tr>
+            <tr><td>Hindi</td><td>88</td></tr>
+            <tr><td>English</td><td>82</td></tr>
+            <tr><td>Maths</td><td>95</td></tr>
+            <tr><td>Science</td><td>91</td></tr>
+        </table>
+
+        <div style="margin-top: 20px; font-size: 13px;">
+            <a href="https://instagram.com/nirbhay_gautam_01" style="color: #ed4956; text-decoration: none; font-weight: bold;">Instagram: @nirbhay_gautam_01</a>
+        </div>
+    </div>
+
+    <div class="dev-footer">
+        <div class="footer-moving">
+            <span>
+                DEVELOPER: NIRBHAY GAUTAM ™®© | 🚀 STATUS: UNDER DEVELOPMENT! | 🛠️ WORK IN PROGRESS: 77% | 📅 FULL VERSION: JUNE 2026 | ⚠️ DO NOT REFRESH!
+            </span>
+        </div>
+    </div>
+
+    <script>
+        function startClock() {
+            setInterval(() => {
+                document.getElementById('rClock').innerText = new Date().toLocaleTimeString('en-GB');
+            }, 1000);
+        }
+
+        function speakSlow() {
+            let msg = new SpeechSynthesisUtterance("डेवलपर निर्भय गौतम। सिस्टम वर्किंग मोड पर है। यह पोर्टल अभी अंडर डेवलपमेंट है।");
+            msg.lang = 'hi-IN';
+            msg.rate = 0.55; 
+            window.speechSynthesis.speak(msg);
+        }
+
+        function runProcess() {
+            if(!document.getElementById('roll').value || !document.getElementById('appNum').value) return alert("Fill Details!");
+            
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            speakSlow();
+
+            let t = 10;
+            let bar = document.getElementById('pBar');
+            let timer = setInterval(() => {
+                t--;
+                document.getElementById('countdown').innerText = t;
+                bar.style.width = (10 - t) * 10 + "%";
+                if(t === 5) speakSlow();
+                if(t <= 0) {
+                    clearInterval(timer);
+                    showDash();
+                }
+            }, 1000);
+        }
+
+        function showDash() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            
+            let h = 24, m = 0, s = 0;
+            setInterval(() => {
+                if (s > 0) s--; else { if (m > 0) { m--; s = 59; } else if (h > 0) { h--; m = 59; s = 59; } }
+                document.getElementById('timer24h').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
