@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPBSE | High-Security Portal 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #eceff1; color: #333; overflow-x: hidden; padding-bottom: 100px; }
+
+        /* टॉप बार */
+        .top-nav { background: #000; color: #fff; padding: 12px; display: flex; align-items: center; border-bottom: 3px solid #ed4956; position: sticky; top: 0; z-index: 1000; }
+        .rail-clock { background: #ed4956; color: white; padding: 4px 12px; font-weight: bold; border-radius: 4px; margin: 0 10px; font-family: monospace; }
+        .marquee { overflow: hidden; white-space: nowrap; flex-grow: 1; font-size: 13px; font-weight: bold; }
+        .marquee span { display: inline-block; animation: scroll 12s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* हेडर */
+        .mp-header { background: #003366; color: white; padding: 18px; display: flex; align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .logo { width: 50px; height: 50px; background: white; border-radius: 50%; padding: 4px; }
+
+        /* कार्ड स्टाइल */
+        .card { max-width: 420px; margin: 25px auto; background: #fff; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: none; padding: 30px; border-top: 6px solid #ed4956; }
+        .active { display: block; animation: zoomIn 0.4s ease; }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* 3D इंस्टाग्राम बॉक्स */
+        .insta-3d { perspective: 1000px; margin-top: 20px; }
+        .insta-content { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); color: white; padding: 15px; border-radius: 10px; transform: rotateX(10deg); box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-align: left; transition: 0.3s; }
+        .insta-content:hover { transform: rotateX(0deg) scale(1.02); }
+        .insta-content a { color: white; text-decoration: none; font-weight: bold; display: block; margin: 5px 0; font-size: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+
+        /* इनपुट और बटन */
+        input { width: 100%; padding: 14px; margin: 10px 0; border: 1.5px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .btn { background: #003366; color: white; border: none; padding: 18px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.3s; margin-top: 10px; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* OTP बॉक्स */
+        #otpSection { display: none; margin-top: 15px; padding: 15px; background: #f9f9f9; border: 1px dashed #003366; border-radius: 8px; }
+
+        /* लोडिंग बार */
+        .p-bar { background: #eee; height: 22px; border-radius: 11px; margin: 20px 0; overflow: hidden; border: 1px solid #ddd; }
+        .p-fill { background: linear-gradient(90deg, #ed4956, #003366); width: 0%; height: 100%; transition: width 0.4s; }
+        .working { color: #ed4956; font-weight: bold; font-size: 22px; animation: blink 0.8s infinite; text-align: center; }
+        @keyframes blink { 50% { opacity: 0.2; } }
+
+        /* फुटर */
+        .footer-dev { background: #111; color: #fff; padding: 18px 0; position: fixed; bottom: 0; width: 100%; border-top: 3px solid #ed4956; z-index: 1000; }
+        .footer-scroll { white-space: nowrap; overflow: hidden; }
+        .footer-scroll span { display: inline-block; animation: fastMove 9s linear infinite; color: #ed4956; font-weight: bold; }
+        @keyframes fastMove { 0% { transform: translateX(100%); } 100% { transform: translateX(-180%); } }
+    </style>
+</head>
+<body onload="startClock()">
+
+    <div class="top-nav">
+        <div class="rail-clock" id="clock">00:00:00</div>
+        <div class="marquee"><span>📺 SONY SET | TMKOC OFFICIAL AD | DEV: NIRBHAY GAUTAM ™®© | JUNE 2026 RELEASE</span></div>
+    </div>
+
+    <div class="mp-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Emblem_of_Madhya_Pradesh.svg/150px-Emblem_of_Madhya_Pradesh.svg.png" class="logo">
+        <div style="text-align: left;">
+            <b style="font-size: 18px; letter-spacing: 1px;">MPBSE, BHOPAL</b><br>
+            <span style="font-size: 11px; opacity: 0.9;">High School Result Gateway 2026</span>
+        </div>
+    </div>
+
+    <div id="step1" class="card active">
+        <h3 style="color: #003366;">Security Verification</h3>
+        <input type="number" id="roll" placeholder="Roll Number">
+        <input type="number" id="app" placeholder="Application Number">
+        
+        <div style="display: flex; align-items: center; gap: 10px; margin: 15px 0; background: #f0f0f0; padding: 10px; border-radius: 5px;">
+            <input type="checkbox" id="robotCheck" onchange="showOTP()" style="width: 20px; height: 20px; cursor: pointer;">
+            <span style="font-size: 14px;">I'm not a robot</span>
+        </div>
+
+        <div id="otpSection">
+            <p style="font-size: 12px; color: #ed4956; font-weight: bold;">Verification Code Sent!</p>
+            <input type="number" id="otpInput" placeholder="Enter 6-digit Code">
+        </div>
+
+        <button class="btn" id="mainBtn" onclick="validateAndStart()" disabled>ACCESS RESULT</button>
+    </div>
+
+    <div id="step2" class="card">
+        <h3 style="color: #003366; text-align: center;">Decrypting Data...</h3>
+        <div class="p-bar"><div class="p-fill" id="fill"></div></div>
+        <div id="timer" style="font-size: 45px; font-weight: bold; color: #003366; text-align: center;">10</div>
+        <div class="working">WORKING...</div>
+    </div>
+
+    <div id="step3" class="card">
+        <div style="background:#d4edda; padding:15px; border-radius:8px; color:#155724; font-weight:bold; margin-bottom: 15px;">
+            RESULT: PASS (1st DIV)
+        </div>
+        <p style="font-size: 13px;">Total Marks: <b>442/500</b></p>
+        
+        <div class="insta-3d">
+            <div class="insta-content">
+                <span style="font-size: 11px; text-transform: uppercase;">Official Developers:</span>
+                <a href="https://instagram.com/ni_rbhay_">🔥 Instagram: @ni_rbhay_</a>
+                <a href="https://instagram.com/niiiihu_patel_">🔥 Instagram: @niiiihu_patel_</a>
+            </div>
+        </div>
+        <p style="font-size: 11px; margin-top: 15px;">Session Expire: <span id="timer24">24:00:00</span></p>
+    </div>
+
+    <div class="footer-dev">
+        <div class="footer-scroll">
+            <span>🚀 UNDER DEVELOPMENT! | 🛠️ WORK IN PROGRESS: 77% | DEVELOPER: NIRBHAY GAUTAM ™®© | 📅 JUNE 2026 FULL VERSION</span>
+        </div>
+    </div>
+
+    <script>
+        function startClock() {
+            setInterval(() => {
+                document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB');
+            }, 1000);
+        }
+
+        function showOTP() {
+            if(document.getElementById('robotCheck').checked) {
+                document.getElementById('otpSection').style.display = 'block';
+                document.getElementById('mainBtn').disabled = false;
+                alert("Verification Code: 112233"); // डमी कोड
+            } else {
+                document.getElementById('otpSection').style.display = 'none';
+                document.getElementById('mainBtn').disabled = true;
+            }
+        }
+
+        function speakSlow(txt) {
+            let msg = new SpeechSynthesisUtterance(txt);
+            msg.lang = 'hi-IN';
+            msg.rate = 0.55; 
+            window.speechSynthesis.speak(msg);
+        }
+
+        function validateAndStart() {
+            const otp = document.getElementById('otpInput').value;
+            if(otp == "112233") {
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                speakSlow("वेरिफिकेशन सफल। डेवलपर निर्भय गौतम। सिस्टम वर्किंग मोड पर है।");
+                
+                let t = 10;
+                let timer = setInterval(() => {
+                    t--;
+                    document.getElementById('timer').innerText = t;
+                    document.getElementById('fill').style.width = (10-t)*10 + "%";
+                    if(t <= 0) {
+                        clearInterval(timer);
+                        document.getElementById('step2').classList.remove('active');
+                        document.getElementById('step3').classList.add('active');
+                        start24();
+                    }
+                }, 1000);
+            } else {
+                alert("Wrong Verification Code!");
+            }
+        }
+
+        function start24() {
+            let h=24, m=0, s=0;
+            setInterval(() => {
+                if(s>0) s--; else if(m>0){m--; s=59;} else if(h>0){h--; m=59; s=59;}
+                document.getElementById('timer24').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
