@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirbhay Auto Dam Facility</title>
+    <style>
+        body { margin: 0; font-family: -apple-system, sans-serif; background: #fafafa; }
+        
+        /* Ad Banner Style */
+        .ad-space { 
+            background: #eee; border: 1px dashed #bbb; color: #888; 
+            padding: 10px; font-size: 11px; text-align: center; 
+            margin: 10px auto; max-width: 400px;
+        }
+
+        #verify-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #ffffff; z-index: 1000; position: fixed; width: 100%; transition: 0.8s; }
+        .captcha-box { border: 1px solid #dbdbdb; padding: 15px 25px; border-radius: 3px; display: flex; align-items: center; gap: 30px; background: #f9f9f9; }
+
+        #main-system { display: none; min-height: 100vh; background-color: #e3f2fd; padding-bottom: 50px; }
+        .header { background: #ffffff; border-bottom: 1px solid #dbdbdb; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .brand { font-weight: bold; font-size: 18px; color: #262626; }
+        .status { font-size: 12px; color: #0095f6; font-weight: bold; display: flex; align-items: center; }
+        .dot { height: 8px; width: 8px; background: #00e676; border-radius: 50%; margin-right: 5px; box-shadow: 0 0 5px #00e676; }
+
+        .content { padding: 10px 20px; text-align: center; }
+        .wish-text { color: #8e8e8e; font-size: 14px; margin-bottom: 15px; }
+
+        .pamphlet { background: #ffffff; border: 1px solid #dbdbdb; border-radius: 8px; max-width: 350px; margin: 0 auto 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .pamphlet-header { padding: 10px; text-align: left; font-weight: bold; border-bottom: 1px solid #efefef; display: flex; align-items: center; gap: 10px; }
+        .profile-pic { width: 30px; height: 30px; background: linear-gradient(45deg, #f09433, #bc1888); border-radius: 50%; }
+        .pamphlet-body { padding: 20px; background: #fff; position: relative; }
+        .free-tag { position: absolute; top: 10px; right: 10px; background: #ed4956; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+        
+        .insta-btn { background: #0095f6; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 15px; }
+
+        .chat-section { background: #ffffff; border: 1px solid #dbdbdb; border-radius: 12px; max-width: 400px; margin: 0 auto; overflow: hidden; }
+        #chat-box { height: 150px; overflow-y: auto; padding: 15px; text-align: left; background: #fafafa; }
+        .msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 18px; font-size: 14px; display: inline-block; }
+        .msg.system { background: #efefef; color: #262626; }
+        .msg.user { background: #0095f6; color: white; float: right; clear: both; }
+
+        .input-area { display: flex; padding: 10px; background: #fff; border-top: 1px solid #dbdbdb; }
+        .input-area input { flex: 1; border: none; outline: none; padding: 8px; font-size: 14px; }
+        .input-area button { background: transparent; color: #0095f6; border: none; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="verify-screen">
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" width="100">
+        <div class="captcha-box">
+            <input type="checkbox" id="check" onclick="initSystem()">
+            <label style="font-size: 14px;">I'm not a robot</label>
+        </div>
+    </div>
+
+    <div id="main-system">
+        <div class="ad-space">ADVERTISEMENT: SPONSORED CONTENT</div>
+
+        <div class="header">
+            <div class="brand">NIRBHAY™®© NG®</div>
+            <div class="status"><span class="dot"></span> ONLINE</div>
+        </div>
+
+        <div class="content">
+            <div id="wish" class="wish-text"></div>
+            
+            <div class="pamphlet">
+                <div class="pamphlet-header">
+                    <div class="profile-pic"></div>
+                    <span>nirbhay_auto_dm</span>
+                </div>
+                <div class="pamphlet-body">
+                    <div class="free-tag">FREE</div>
+                    <h2 style="margin: 0;">दम फैसिलिटी कोर्स</h2>
+                    <p style="font-size: 13px; color: #8e8e8e;">वीडियो एडिटिंग + रेलवे स्पेशल</p>
+                    <a href="https://instagram.com/nirbhay_gautam_01" class="insta-btn">Access Now</a>
+                </div>
+            </div>
+
+            <div class="ad-space" style="background: #fff3e0;">PROMOTED: SPECIAL DISCOUNT INSIDE</div>
+
+            <div class="chat-section">
+                <div id="chat-box">
+                    <div class="msg system">स्वागत है! ऑटो-दम सिस्टम एक्टिव है।</div>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="msg-input" placeholder="मैसेज...">
+                    <button onclick="sendMsg()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-space" style="margin-top: 20px;">ADS BY SYSTEM MANAGER</div>
+    </div>
+
+    <script>
+        function initSystem() {
+            setTimeout(() => {
+                document.getElementById('verify-screen').style.display = 'none';
+                document.getElementById('main-system').style.display = 'block';
+                const h = new Date().getHours();
+                let g = h < 12 ? "Good Morning" : h < 17 ? "Good Afternoon" : "Good Evening";
+                document.getElementById('wish').innerText = g + ", निर्भय™®© NG®";
+            }, 800);
+        }
+
+        function sendMsg() {
+            let inp = document.getElementById('msg-input');
+            if(inp.value.trim()) {
+                let box = document.getElementById('chat-box');
+                let d = document.createElement('div');
+                d.className = "msg user";
+                d.innerText = inp.value;
+                box.appendChild(d);
+                inp.value = "";
+                box.scrollTop = box.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
