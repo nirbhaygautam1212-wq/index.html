@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NG-CORE | Developer Nirbhay Gautam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        .bg-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg'); 
+            background-size: cover; background-position: center; z-index: -2; 
+        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: -1; }
+
+        /* नोटिस स्क्रीन */
+        #notice-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); display: flex; justify-content: center; align-items: center; z-index: 999;
+        }
+        .notice-box {
+            width: 90%; max-width: 450px; background: rgba(255, 255, 255, 0.05); border: 1px solid #00f2ff;
+            padding: 30px; border-radius: 30px; text-align: center; backdrop-filter: blur(20px);
+        }
+        .dev-header { color: #00f2ff; font-size: 14px; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+
+        /* मुख्य कंटेंट */
+        #main-content { display: none; text-align: center; width: 100%; animation: fadeIn 0.8s ease-in; }
+        .box { width: 90%; max-width: 480px; margin: 0 auto; background: rgba(255,255,255,0.08); padding: 35px; border-radius: 40px; border: 1px solid rgba(0,242,255,0.3); position: relative; }
+
+        .btn-start { width: 100%; padding: 15px; background: #00f2ff; color: #000; border: none; font-weight: bold; border-radius: 12px; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
+        .btn-web { width: 100%; padding: 18px; background: linear-gradient(45deg, #00f2ff, #0072ff); color: #fff; border: none; font-weight: bold; border-radius: 15px; cursor: pointer; margin-top: 15px; }
+
+        .footer-credit { margin-top: 25px; font-size: 12px; color: #00f2ff; font-weight: bold; letter-spacing: 1px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+
+    <div id="notice-overlay">
+        <div class="notice-box">
+            <div class="dev-header">Developer: Nirbhay Gautam™®© NG®</div>
+            <h2 style="color: #ffcc00; margin-bottom: 15px;">Official Notice</h2>
+            <p style="font-size: 14px; line-height: 1.6; color: #ccc; text-align: left;">
+                यह सिस्टम <b>डेवलपर निर्भय गौतम</b> द्वारा विकसित किया गया है। वर्तमान में यह बीटा वर्जन पर है। वॉलपेपर के लिए तीसरे नंबर के विकल्प का चयन करें। यहाँ 40,000 से भी ज्यादा प्रीमियम वॉलपेपर उपलब्ध हैं।
+            </p>
+            <button class="btn-start" onclick="startSystem()">Agree & Enter System</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="box">
+            <div style="font-size: 10px; color: #00f2ff; letter-spacing: 3px; font-weight: bold;">DEVELOPER: NIRBHAY GAUTAM</div>
+            <h1 style="font-size: 50px; background: linear-gradient(45deg, #00f2ff, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;">NG-CORE</h1>
+            
+            <div style="width: 100%; height: 120px; background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg'); background-size: cover; background-position: center; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1);"></div>
+            
+            <a href="https://instagram.com/Niiiihu_patel_" target="_blank" style="text-decoration:none;">
+                <div style="background:rgba(255,255,255,0.05); color:white; padding:15px; border-radius:12px; margin-bottom:10px; border-left:4px solid #E1306C; font-weight: bold;">Instagram: @Niiiihu_patel_</div>
+            </a>
+            
+            <button class="btn-web" onclick="window.open('https://www.pexels.com/@indianrailwayvibes-1595603606', '_blank')">OPEN 40K+ WALLPAPERS 📸</button>
+            
+            <div class="footer-credit">Developer: Nirbhay Gautam™®© NG®</div>
+        </div>
+    </div>
+
+    <script>
+        function startSystem() {
+            document.getElementById('notice-overlay').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            playVoice();
+        }
+
+        function playVoice() {
+            window.speechSynthesis.cancel();
+            const text = "यह सिस्टम अनलॉक हो गया है और इसके मुख्य डेवलपर निर्भय गौतम हैं। ध्यान दें, यह अभी बीटा वर्जन और टेस्टिंग फेज में है। वेबसाइट पर जाने के बाद यदि आपको वॉलपेपर चाहिए, तो तीसरे नंबर के ऑप्शन को दबाएं। वहां आपको इंडियन रेलवे के प्रीमियम वॉलपेपर मिलेंगे। यदि आपको इंडियन रेलवे के वॉलपेपर नहीं चाहिए, तो आप नीचे स्क्रॉल डाउन कर सकते हैं। यहाँ चालीस हजार से भी ज्यादा वॉलपेपर्स उपलब्ध हैं। आगे के अपडेट में यहाँ बहुत सारी नई चीज़ें और फीचर्स जोड़े जाएंगे। डेवलपर निर्भय गौतम द्वारा यह सिस्टम सुरक्षित किया गया है।";
+
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'hi-IN';
+            msg.pitch = 0.85;
+            msg.rate = 0.95;
+
+            const voices = window.speechSynthesis.getVoices();
+            const male = voices.find(v => (v.name.includes('Male') || v.name.includes('Google हिन्दी')) && v.lang.includes('hi'));
+            if(male) msg.voice = male;
+
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
