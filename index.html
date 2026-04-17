@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLEXY ULTRA - Nirbhay™</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background: #000; 
+            color: #fff; 
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* हाई-लेवल बैकग्राउंड एनीमेशन */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: bgZoom 20s infinite alternate;
+            z-index: -1;
+        }
+        @keyframes bgZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+
+        .main-ui { 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* ग्लास जैसा कार्ड */
+        .box { 
+            width: 100%;
+            max-width: 420px; 
+            background: rgba(255, 255, 255, 0.07); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            padding: 40px 30px; 
+            border-radius: 30px; 
+            display: none; 
+            text-align: center;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .active { display: block !important; }
+
+        .brand-name { 
+            font-size: 55px; 
+            font-weight: 900; 
+            background: linear-gradient(to bottom, #00f2ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 8px;
+            filter: drop-shadow(0 0 10px rgba(0,242,255,0.4));
+            margin-bottom: 5px;
+        }
+        .brand-sub { font-size: 10px; color: #00f2ff; letter-spacing: 5px; margin-bottom: 30px; opacity: 0.7; }
+
+        input { 
+            width: 100%; padding: 18px; margin: 20px 0; background: rgba(0,0,0,0.4); 
+            border: 1px solid rgba(0,242,255,0.3); color: #00f2ff; font-size: 24px; text-align: center; outline: none;
+            letter-spacing: 12px; border-radius: 15px; transition: 0.3s;
+        }
+        input:focus { border-color: #00f2ff; box-shadow: 0 0 15px rgba(0,242,255,0.2); }
+
+        .btn { 
+            width: 100%; padding: 18px; margin: 10px 0; background: linear-gradient(45deg, #00f2ff, #0072ff);
+            color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 16px;
+            border-radius: 15px; transition: 0.3s; text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(0,114,255,0.3);
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; box-shadow: none; }
+
+        .loader-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 30px 0; }
+        .fill { width: 0%; height: 100%; background: #00f2ff; box-shadow: 0 0 15px #00f2ff; transition: width 0.1s linear; }
+        
+        .user-title { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+        .user-tag { color: #00f2ff; font-size: 11px; letter-spacing: 2px; margin-bottom: 30px; }
+
+        #error-msg { color: #ff4b4b; font-size: 13px; margin-bottom: 10px; display: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+
+    <div class="main-ui">
+        
+        <div id="step1" class="box active">
+            <div class="brand-name">FLEXY</div>
+            <div class="brand-sub">CORE ACCESS</div>
+            <input type="password" id="secretCode" placeholder="***" maxlength="3">
+            <div id="error-msg">INVALID ACCESS KEY</div>
+            <button class="btn" onclick="processLogin()">INITIALIZE</button>
+        </div>
+
+        <div id="step2" class="box">
+            <div class="brand-name" style="font-size: 30px;">LOADING</div>
+            <div class="loader-container"><div id="bar" class="fill"></div></div>
+            <p id="boot-log" style="font-size: 11px; color: #00f2ff; text-transform: uppercase;">Syncing Database...</p>
+        </div>
+
+        <div id="step3" class="box">
+            <div class="user-title">NIRBHAY GAUTAM ™®©</div>
+            <div class="user-tag">RAILWAY PHOTOGRAPHER</div>
+            <button class="btn" onclick="showGallery()">OPEN PHOTOGRAPHY PORTFOLIO</button>
+            <button class="btn btn-outline" style="margin-top: 15px;" onclick="location.reload()">DISCONNECT</button>
+        </div>
+
+        <div id="step4" class="box">
+            <div class="brand-name" style="font-size: 28px; margin-bottom: 15px;">PORTFOLIO</div>
+            <p style="color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
+                "भारतीय रेलवे की सुंदरता को मेरे लेंस के माध्यम से देखें।"
+            </p>
+            <a href="https://www.pexels.com/@indianrailwayvibes-1595603606" target="_blank" class="btn" style="display: block; text-decoration: none;">EXPLORE ON PEXELS 📸</a>
+            <button class="btn btn-outline" style="margin-top: 20px;" onclick="backToPanel()">RETURN</button>
+        </div>
+
+    </div>
+
+    <script>
+        function processLogin() {
+            const codeInput = document.getElementById('secretCode').value;
+            const error = document.getElementById('error-msg');
+
+            if (codeInput === "112") {
+                error.style.display = 'none';
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                runEngineBoot();
+            } else {
+                error.style.display = 'block';
+                document.getElementById('secretCode').value = "";
+            }
+        }
+
+        function runEngineBoot() {
+            let p = 0;
+            const bar = document.getElementById('bar');
+            const log = document.getElementById('boot-log');
+            const msgs = ["Decrypting...", "Validating...", "Loading Assets...", "Ready!"];
+            
+            const voiceMsg = "सिस्टम अनलॉक हो गया है। फ्लेक्सी में आपका स्वागत है निर्भय।";
+            const speech = new SpeechSynthesisUtterance(voiceMsg);
+            speech.lang = 'hi-IN';
+            window.speechSynthesis.speak(speech);
+
+            const timer = setInterval(() => {
+                p += 4;
+                bar.style.width = p + "%";
+                if(p % 25 == 0) log.innerText = msgs[Math.floor(p/25) - 1];
+                
+                if(p >= 100) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        document.getElementById('step2').classList.remove('active');
+                        document.getElementById('step3').classList.add('active');
+                    }, 400);
+                }
+            }, 50);
+        }
+
+        function showGallery() {
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step4').classList.add('active');
+        }
+
+        function backToPanel() {
+            document.getElementById('step4').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        }
+    </script>
+</body>
+</html>
