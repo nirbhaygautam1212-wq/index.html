@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPBSE | Premium Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; padding-bottom: 100px; }
+
+        /* Premium Product Card Look */
+        .card { 
+            max-width: 420px; 
+            margin: 30px auto; 
+            background: #1c1c1e; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+            display: none; 
+            border: 1px solid #333;
+        }
+        .active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Apple Style Input */
+        input { 
+            width: 100%; padding: 15px; margin: 12px 0; 
+            background: #2c2c2e; border: none; border-radius: 12px; 
+            color: #fff; font-size: 16px; outline: none; 
+            border: 1px solid transparent; transition: 0.3s;
+        }
+        input:focus { border-color: #ed4956; }
+
+        /* Premium Buttons */
+        .download-btn {
+            display: inline-block; background: #fff; color: #000;
+            padding: 15px 30px; margin-top: 15px; border-radius: 30px;
+            text-decoration: none; font-weight: bold; font-size: 16px;
+            transition: 0.3s; border: none; cursor: pointer; width: 100%;
+        }
+        .download-btn:hover { transform: scale(1.02); background: #ed4956; color: #fff; }
+
+        /* Loader */
+        .loader { border: 3px solid #333; border-top: 3px solid #ed4956; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Marksheet Premium Table */
+        .subject-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #333; font-size: 15px; }
+        .marks-obtained { color: #ed4956; font-weight: bold; font-size: 18px; }
+
+        .footer-dev { background: #000; color: #ed4956; padding: 15px; position: fixed; bottom: 0; width: 100%; font-weight: bold; overflow: hidden; border-top: 1px solid #333; }
+        .scroll { display: inline-block; animation: move 10s linear infinite; white-space: nowrap; }
+        @keyframes move { 0% { transform: translateX(100%); } 100% { transform: translateX(-150%); } }
+
+        .game-card { 
+            background: linear-gradient(135deg, #ed4956, #8b1e28); 
+            padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="background:#111; color:#ed4956; padding:15px; text-align:center; font-weight:bold; letter-spacing: 1px;">
+        NIRBHAY GAUTAM ™®© | PREMIUM PORTAL
+    </div>
+
+    <div id="step1" class="card active" style="text-align: center;">
+        <h2 style="margin-bottom: 10px;">Verification</h2>
+        <p style="font-size: 13px; color: #888; margin-bottom: 20px;">Enter your details to access the secure portal.</p>
+        <input type="number" id="rollNo" placeholder="Roll Number">
+        <input type="number" id="appNo" placeholder="Application Number">
+        <button onclick="startLoading()" class="download-btn">VERIFY NOW</button>
+    </div>
+
+    <div id="step2" class="card" style="text-align: center;">
+        <h3 style="color: #ed4956;">SERVER WORKING...</h3>
+        <div class="loader"></div>
+        <p id="loading-text" style="color: #888; font-family: monospace;">INITIALIZING SECURITY GATEWAY...</p>
+    </div>
+
+    <div id="step3" class="card">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 12px; color: #ed4956; font-weight: bold; letter-spacing: 2px;">OFFICIAL RESULT 2026</div>
+            <h2 style="margin: 5px 0;">NIRBHAY GAUTAM ™®©</h2>
+            <p style="font-size: 12px; color: #888;">Roll ID: <span id="dispRoll"></span></p>
+        </div>
+
+        <div class="subject-row"><span>HINDI</span> <span class="marks-obtained">88</span></div>
+        <div class="subject-row"><span>ENGLISH</span> <span class="marks-obtained">82</span></div>
+        <div class="subject-row"><span>MATHEMATICS</span> <span class="marks-obtained">95</span></div>
+        <div class="subject-row"><span>SCIENCE</span> <span class="marks-obtained">91</span></div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #2c2c2e; border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold;">TOTAL SCORE</span>
+            <span style="font-size: 22px; color: #fff; font-weight: bold;">94.2%</span>
+        </div>
+
+        <div class="game-card">
+            <h4 style="margin-bottom: 10px;">PREMIUM APK UNLOCKED</h4>
+            <a href="YOUR_LINK" class="download-btn" style="background: #000; color: #fff;">GET IT NOW</a>
+        </div>
+    </div>
+
+    <div class="footer-dev">
+        <div class="scroll">🚀 DEVELOPER: NIRBHAY GAUTAM ™®© | STATUS: DEVELOPING PHASE | VERSION 2.0.1 🚀</div>
+    </div>
+
+    <script>
+        function startLoading() {
+            let roll = document.getElementById('rollNo').value;
+            if(!roll) { alert("Please enter details"); return; }
+            
+            document.getElementById('dispRoll').innerText = roll;
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            let texts = ["BYPASSING FIREWALL...", "FETCHING ENCRYPTED DATA...", "DECODING MARKS...", "VERIFICATION SUCCESSFUL"];
+            let i = 0;
+            let interval = setInterval(() => {
+                document.getElementById('loading-text').innerText = texts[i];
+                i++;
+                if(i >= texts.length) {
+                    clearInterval(interval);
+                    showResult();
+                }
+            }, 1200);
+        }
+
+        function showResult() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            
+            // --- VOICE COMMAND UPDATED ---
+            let voiceMsg = "वेरिफिकेशन सफल रहा। इसके डेवलपर निर्भय गौतम हैं और यह वेबसाइट अभी डेवलपिंग फेज में है।";
+            let speech = new SpeechSynthesisUtterance(voiceMsg);
+            speech.lang = 'hi-IN';
+            speech.rate = 0.9; 
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
