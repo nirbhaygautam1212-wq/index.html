@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NG-CORE | Anti-Block Beta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        .bg-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg'); 
+            background-size: cover; background-position: center; 
+            animation: bgZoom 20s infinite alternate; z-index: -2; 
+        }
+        @keyframes bgZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.95) 100%); z-index: -1; }
+        
+        .box { width: 90%; max-width: 500px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(0, 242, 255, 0.4); padding: 35px 25px; border-radius: 40px; text-align: center; backdrop-filter: blur(40px); box-shadow: 0 0 60px rgba(0, 242, 255, 0.15); position: relative; }
+
+        .logo-area { position: relative; display: inline-block; margin-bottom: 5px; }
+        .system-logo { font-size: clamp(35px, 8vw, 55px); font-weight: 900; background: linear-gradient(45deg, #00f2ff, #fff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 242, 255, 0.4); letter-spacing: -2px; }
+        
+        .version-tag { position: absolute; top: -5px; right: -40px; background: #ffcc00; color: #000; font-size: 9px; font-weight: bold; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; }
+        .testing-status { color: #00f2ff; font-size: 10px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
+        .dev-tag { font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 15px; }
+
+        .photo-preview {
+            width: 100%; height: 130px;
+            background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg');
+            background-size: cover; background-position: center;
+            border-radius: 20px; margin: 10px 0 20px 0; border: 1px solid rgba(0, 242, 255, 0.3);
+        }
+
+        .insta-id { background: rgba(255,255,255,0.05); border-left: 4px solid #E1306C; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; color: #fff; margin-bottom: 10px; font-size: 14px; }
+
+        .btn { width: 100%; padding: 18px; margin-top: 10px; background: linear-gradient(45deg, #00f2ff, #0072ff); color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        #voice-info { font-size: 10px; color: #ffcc00; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; border: 1px solid #ffcc00; padding: 5px; border-radius: 10px; }
+    </style>
+</head>
+<body onclick="forceStartSystem()">
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+
+    <div class="main-ui">
+        <div class="box">
+            <div class="logo-area">
+                <div class="system-logo">NG-CORE</div>
+                <div class="version-tag">BETA</div>
+            </div>
+            <span class="testing-status">Anti-Block Activated</span>
+            <div class="dev-tag">Developer: Nirbhay Gautam™®© NG®</div>
+            <div class="photo-preview"></div>
+            
+            <a href="https://instagram.com/Niiiihu_patel_" target="_blank" class="insta-id"><i class="fab fa-instagram"></i> <span>@Niiiihu_patel_</span></a>
+            <a href="https://instagram.com/ni_rbhay_" target="_blank" class="insta-id"><i class="fab fa-instagram"></i> <span>@ni_rbhay_</span></a>
+
+            <button class="btn" onclick="window.open('https://www.pexels.com/@indianrailwayvibes-1595603606', '_blank')">PEXELS 40K+ COLLECTION 📸</button>
+
+            <div id="voice-info">स्क्रीन पर कहीं भी टच करें (वॉइस परमानेंट शुरू करें)</div>
+        </div>
+    </div>
+
+    <script>
+        let systemActive = false;
+        let speechQueue = null;
+
+        function speak() {
+            // पुराने सभी अवशेषों को पूरी तरह खत्म करना
+            window.speechSynthesis.pause();
+            window.speechSynthesis.cancel();
+
+            const text = "यह सिस्टम अनलॉक हो गया है और इसके मुख्य डेवलपर निर्भय गौतम हैं। ध्यान दें, यह अभी बीटा वर्जन और टेस्टिंग फेज में है। नीचे दी गई वेबसाइट पर जाने के बाद यदि आपको वॉलपेपर चाहिए, तो तीसरे नंबर के ऑप्शन को दबाएं। वहां आपको इंडियन रेलवे के प्रीमियम वॉलपेपर मिलेंगे। यदि आपको इंडियन रेलवे के वॉलपेपर नहीं चाहिए, तो आप नीचे स्क्रॉल डाउन कर सकते हैं। यहाँ चालीस हजार से भी ज्यादा वॉलपेपर्स उपलब्ध हैं। आगे के अपडेट में यहाँ बहुत सारी नई चीज़ें और फीचर्स जोड़े जाएंगे। अभी का कार्य अंडर कंस्ट्रक्शन और डेवलपमेंट में है।";
+
+            speechQueue = new SpeechSynthesisUtterance(text);
+            speechQueue.lang = 'hi-IN';
+            speechQueue.pitch = 0.85; 
+            speechQueue.rate = 0.95; 
+
+            const voices = window.speechSynthesis.getVoices();
+            const maleVoice = voices.find(v => (v.name.includes('Male') || v.name.includes('Google हिन्दी')) && v.lang.includes('hi'));
+            if(maleVoice) speechQueue.voice = maleVoice;
+
+            // मज़बूत लूप तकनीक: बोलने के बाद 30 सेकंड का सटीक इंतज़ार
+            speechQueue.onend = function() {
+                setTimeout(() => {
+                    if(systemActive) speak();
+                }, 30000);
+            };
+
+            // ब्राउज़र एरर प्रोटेक्शन: अगर ब्राउज़र आवाज़ रोकता है, तो 1 सेकंड बाद फिर कोशिश करें
+            speechQueue.onerror = function() {
+                setTimeout(speak, 1000);
+            };
+
+            window.speechSynthesis.speak(speechQueue);
+            document.getElementById('voice-info').innerText = "SYSTEM SECURED: VOICE ACTIVE";
+        }
+
+        function forceStartSystem() {
+            if(!systemActive) {
+                systemActive = true;
+                speak();
+                
+                // ब्राउज़र की "Sleep Mode" को रोकने के लिए एक छोटा अदृश्य 'हार्टबीट' साउंड
+                setInterval(() => {
+                    if (!window.speechSynthesis.speaking) {
+                        console.log("Keep alive check: Restarting voice...");
+                        speak();
+                    }
+                }, 120000); // हर 2 मिनट में चेक करें कि आवाज़ ज़िंदा है या नहीं
+            }
+        }
+
+        // ब्राउज़र के आवाज़ लोड होने का इंतज़ार
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => { if(systemActive) speak(); };
+        }
+    </script>
+</body>
+</html>
