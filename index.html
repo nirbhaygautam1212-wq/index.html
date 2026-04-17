@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NG-CORE Universal | Nirbhay Gautam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            background: #000; 
+            color: #fff; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        /* बैकग्राउंड एनीमेशन */
+        .bg-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: url('https://i.postimg.cc/mD8zYpT9/Indian-Railways-175-Years.jpg'); 
+            background-size: cover; background-position: center; 
+            animation: bgZoom 20s infinite alternate; z-index: -1; 
+        }
+        @keyframes bgZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.95) 100%); 
+            z-index: -1; 
+        }
+        
+        /* रिस्पॉन्सिव कंटेनर */
+        .box { 
+            width: 90%; 
+            max-width: 480px; 
+            background: rgba(255, 255, 255, 0.08); 
+            border: 1px solid rgba(0, 242, 255, 0.4); 
+            padding: 30px; 
+            border-radius: 40px; 
+            text-align: center; 
+            backdrop-filter: blur(35px); 
+            box-shadow: 0 0 80px rgba(0, 242, 255, 0.2); 
+            animation: fadeIn 1s ease-out;
+            margin: 20px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .system-logo {
+            font-size: clamp(40px, 10vw, 60px); /* मोबाइल और डेस्कटॉप दोनों के लिए ऑटो-साइज */
+            font-weight: 900;
+            background: linear-gradient(45deg, #00f2ff, #fff, #0072ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+            letter-spacing: -2px; margin-bottom: 5px;
+        }
+        
+        .dev-tag { font-size: 13px; color: #00f2ff; letter-spacing: 2px; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; }
+
+        .insta-id {
+            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+            border-left: 4px solid #E1306C; padding: 15px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            text-decoration: none; color: #fff; margin-bottom: 12px; transition: 0.3s;
+        }
+        .insta-id i { font-size: 22px; color: #E1306C; }
+        .insta-id span { font-size: clamp(14px, 4vw, 18px); font-weight: bold; }
+        .insta-id:hover { transform: translateY(-3px); background: rgba(255,255,255,0.15); box-shadow: 0 5px 15px rgba(225, 48, 108, 0.3); }
+
+        .btn { 
+            width: 100%; padding: 18px; margin-top: 15px; 
+            background: linear-gradient(45deg, #00f2ff, #0072ff); 
+            color: #fff; border: none; font-weight: bold; cursor: pointer; 
+            border-radius: 15px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .wip-footer { margin-top: 25px; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* लैंडस्केप मोड के लिए विशेष एडजस्टमेंट */
+        @media (max-height: 500px) {
+            .box { padding: 15px; max-width: 600px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+            .system-logo { font-size: 35px; width: 100%; }
+            .dev-tag { margin-bottom: 10px; width: 100%; }
+            .insta-id { width: 45%; margin-bottom: 0; }
+            .btn { width: 92%; margin-top: 5px; }
+            .wip-footer { width: 100%; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body onclick="startExperience()">
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+
+    <div class="main-ui">
+        <div class="box">
+            <div class="system-logo">NG-CORE</div>
+            <div class="dev-tag">Nirbhay Gautam™®© NG®</div>
+            
+            <a href="https://instagram.com/Niiiihu_patel_" target="_blank" class="insta-id">
+                <i class="fab fa-instagram"></i>
+                <span>@Niiiihu_patel_</span>
+            </a>
+
+            <a href="https://instagram.com/ni_rbhay_" target="_blank" class="insta-id">
+                <i class="fab fa-instagram"></i>
+                <span>@ni_rbhay_</span>
+            </a>
+
+            <button class="btn" onclick="window.open('https://www.pexels.com/@indianrailwayvibes-1595603606', '_blank')">GET HD WALLPAPERS 📸</button>
+
+            <div class="wip-footer">
+                Work In Progress | Balaghat-Waraseoni
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isSpeaking = false;
+
+        function speak() {
+            window.speechSynthesis.cancel();
+            const msg = "यह अनलॉक हो गया है और इसके डेवलपर निर्भय गौतम हैं। यह कार्य वर्किंग प्रोग्रेस में भी चल रहा है। यह एक वॉलपेपर के लिए सर्वश्रेष्ठ वेबसाइट है, यहाँ आपको हर प्रकार के वॉलपेपर मिल जाएंगे। आगे की सभी प्रक्रियाएं अभी कंस्ट्रक्शन और डेवलपमेंट में हैं।";
+            const utterance = new SpeechSynthesisUtterance(msg);
+            utterance.lang = 'hi-IN';
+            utterance.pitch = 0.85; 
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function startExperience() {
+            if(!isSpeaking) {
+                isSpeaking = true;
+                speak();
+                setInterval(speak, 20000); 
+            }
+        }
+    </script>
+</body>
+</html>
